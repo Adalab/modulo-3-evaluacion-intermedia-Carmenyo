@@ -35,9 +35,9 @@ function App() {
     console.log(newDataPhrase);
   };
 
-  const htmlData = phrases.map((phrase, i) => {
+  const htmlData = data.map((phrase, i) => {
     return (
-      <li clasName="listElement" key={i}>
+      <li className="listElement" key={i}>
         {" "}
         {phrase.quote}
         {phrase.character}{" "}
@@ -56,7 +56,7 @@ function App() {
           className="new-phrase__input"
           type="text"
           name="phrase"
-          id="phrase"
+          id="quote"
           placeholder="Nueva Frase"
           onChange={handleNewPhrase}
         />
@@ -65,7 +65,7 @@ function App() {
           className="new-phrase-caracter__input"
           type="text"
           name="caracter"
-          id="caracter"
+          id="character"
           placeholder="Personaje"
           onChange={handleNewPhraseCaracter}
         />
