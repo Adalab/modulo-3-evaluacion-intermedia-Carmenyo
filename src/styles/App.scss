@@ -1,0 +1,21 @@
+.header {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  // background-image: url('../images/001.jpg');
+  // background-repeat: no-repeat;
+  // background-size: cover;
+
+  &__title {
+    color: rgb(37, 151, 244);
+  }
+}
+
+.logo {
+  width: 200px;
+  animation: sp;
+}
