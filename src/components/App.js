@@ -10,6 +10,13 @@ function App() {
     character: "",
   });
 
+  const [search, setSearch] =useState (" ");
+
+  const handleSearch = (ev) =>{
+    setSearch(ev.target.value);
+
+  }
+
   const handleNewPhrase = (ev) => {
     setnewDataPhrase({
       ...newDataPhrase,
@@ -35,7 +42,12 @@ function App() {
     console.log(newDataPhrase);
   };
 
-  const htmlData = data.map((phrase, i) => {
+  const htmlData = data
+  .filter( 
+  (phrase)=> 
+  phrase.quote.toLowerCase().includes(search.toLowerCase()) ||
+  phrase.character.toLowerCase().includes(search.toLowerCase()))
+  .map((phrase, i) => {
     return (
       <li className="listElement" key={i}>
         {" "}
@@ -47,6 +59,17 @@ function App() {
   return (
     <>
       <h1 className="header__title">Frases de Friends</h1>
+      Filtrar por frase
+      <input
+            className="header__search"
+            autoComplete="off"
+            type="search"
+            name="search"
+            placeholder="Filtrar frases"
+            onChange= {handleSearch}
+            value={search}>
+              
+            </input>
       <ul>{htmlData}</ul>
 
       <form className="new-phrase__form">
