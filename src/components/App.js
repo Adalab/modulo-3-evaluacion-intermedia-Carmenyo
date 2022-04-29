@@ -5,6 +5,7 @@ console.log(phrases);
 
 function App() {
   const [data, setData] = useState(phrases);
+  const [select, setSelect] = useState('all');
   const [newDataPhrase, setnewDataPhrase] = useState({
     quote: "",
     character: "",
@@ -14,7 +15,9 @@ function App() {
 
   const handleSearch = (ev) =>{
     setSearch(ev.target.value);
-
+  }
+  const handleSelect = (ev) => {
+    setSelect(ev.target.value);
   }
 
   const handleNewPhrase = (ev) => {
@@ -43,24 +46,39 @@ function App() {
   };
 
   const htmlData = data
-  .filter( 
-  (phrase)=> 
-  phrase.quote.toLowerCase().includes(search.toLowerCase()) ||
-  phrase.character.toLowerCase().includes(search.toLowerCase()))
+
+  .filter( (phrase) => 
+  phrase.quote.toLowerCase().includes(search.toLowerCase())
+  )
+  .filter((phrase) => {
+    if (select === 'all') {
+      return true;
+    } else if (select === phrase.character) {
+      return true;
+    } else {
+      return false;
+    }
+  })
+
   .map((phrase, i) => {
     return (
       <li className="listElement" key={i}>
-        {" "}
+     <p>
         {phrase.quote}
-        {phrase.character}{" "}
+        {phrase.character}
+        
+        </p>
       </li>
     );
   });
+
+
   return (
     <>
       <h1 className="header__title">Frases de Friends</h1>
-      Filtrar por frase
-      <input
+      <form>
+            Filtrar por frase
+            <input
             className="header__search"
             autoComplete="off"
             type="search"
@@ -68,8 +86,23 @@ function App() {
             placeholder="Filtrar frases"
             onChange= {handleSearch}
             value={search}>
-              
             </input>
+
+            Filtar por personaje
+            <select name="" id="" onChange={handleSelect} value={select}>
+              <option value="all">Todos</option>
+              <option value="Ross">Ross</option>
+              <option value="Monica">Mónica</option>
+              <option value="Joey">Joey</option>
+              <option value="Phoebe">Phoebe</option>
+              <option value="Chandler">Chandler</option>
+              <option value="Rachel">Rachel</option>
+            </select>
+      </form>
+
+     
+
+
       <ul>{htmlData}</ul>
 
       <form className="new-phrase__form">
@@ -82,6 +115,7 @@ function App() {
           id="quote"
           placeholder="Nueva Frase"
           onChange={handleNewPhrase}
+          value={newDataPhrase.quote}
         />
         Personaje
         <input
@@ -91,6 +125,7 @@ function App() {
           id="character"
           placeholder="Personaje"
           onChange={handleNewPhraseCaracter}
+          value={newDataPhrase.character}
         />
       </form>
       <input
