@@ -11,7 +11,7 @@ function App() {
     character: "",
   });
 
-  const [search, setSearch] =useState (" ");
+  const [search, setSearch] =useState ("");
 
   const handleSearch = (ev) =>{
     setSearch(ev.target.value);
