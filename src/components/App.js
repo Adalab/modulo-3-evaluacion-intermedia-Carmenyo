@@ -1,9 +1,11 @@
 import "../styles/App.scss";
 import phrases from "../data/phrases.json";
-import { useState } from "react";
-console.log(phrases);
+import { useState, useEffect } from "react";
+import dataApi from '../services/fetch';
+
 
 function App() {
+  const [quotes, setQuotes] = useState ([]);
   const [data, setData] = useState(phrases);
   const [select, setSelect] = useState('all');
   const [newDataPhrase, setnewDataPhrase] = useState({
@@ -12,6 +14,14 @@ function App() {
   });
 
   const [search, setSearch] =useState ("");
+
+  useEffect(() => {
+    if (quotes.length === 0) {
+      dataApi().then(datafromAPI => {
+        setQuotes(datafromAPI);
+      });
+    }
+  }, []);
 
   const handleSearch = (ev) =>{
     setSearch(ev.target.value);
@@ -75,7 +85,8 @@ function App() {
 
   return (
     <>
-      <h1 className="header__title">Frases de Friends</h1>
+    <header>  <h1 className="header__title">Frases de Friends</h1> </header>
+     
       <form>
             Filtrar por frase
             <input
